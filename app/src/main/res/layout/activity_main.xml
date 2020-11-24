@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <View
+        android:id="@+id/colorView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_above="@+id/iosColorSlider"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="22dp" />
+
+    <com.xdevelopers.iosseekbar.IOSColorSeekBar
+        android:id="@+id/iosColorSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_centerInParent="true"
+        app:shadowLayer="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iosColorSlider"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginTop="39dp">
+        <View
+            android:id="@+id/view1"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:background="#ff5722"
+            android:onClick="colorViewClicked"
+            android:layout_gravity="center" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:background="#ffff00"
+            android:onClick="colorViewClicked"
+            android:layout_gravity="center" />
+        <View
+            android:id="@+id/view3"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:background="#00e676"
+            android:onClick="colorViewClicked"
+            android:layout_gravity="center" />
+        <View
+            android:id="@+id/view4"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:background="#33691e"
+            android:onClick="colorViewClicked"
+            android:layout_gravity="center" />
+        <View
+            android:id="@+id/view5"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:background="#00b0ff"
+            android:onClick="colorViewClicked"
+            android:layout_gravity="center" />
+        <View
+            android:id="@+id/view6"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:background="#6a1b9a"
+            android:onClick="colorViewClicked"
+            android:layout_gravity="center" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

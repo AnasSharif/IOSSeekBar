@@ -1,0 +1,3 @@
+include ':iosseekbar'
+include ':app'
+rootProject.name = "IOSSeekBar"

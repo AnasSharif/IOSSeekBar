@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="iOSColorSeekBar">
+        <attr name="seekBarColors" format="reference" />
+        <attr name="cornerRadius" format="dimension"/>
+        <attr name="barHeight" format="dimension"/>
+        <attr name="thumbBorder" format="dimension"/>
+        <attr name="thumbBorderColor" format="color"/>
+        <attr name="shadowLayer" format="boolean"/>
+    </declare-styleable>
+</resources>
