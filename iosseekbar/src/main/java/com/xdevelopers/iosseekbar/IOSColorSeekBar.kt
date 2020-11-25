@@ -43,9 +43,9 @@ class IOSColorSeekBar(context: Context, attributeSet: AttributeSet) : View(conte
     private var min = 0.2f
     private var max = 0.8f
     // default shadow maximum radius
-    var thumbShadowRadius = maxRadius
+    private var thumbShadowRadius = maxRadius
     // default shadow color
-    var thumbShadowColor = Color.parseColor("#e0e0e0")
+    private var thumbShadowColor = Color.parseColor("#e0e0e0")
     // lightness of color
     private var lightness = max
     // brightness of color
@@ -58,9 +58,14 @@ class IOSColorSeekBar(context: Context, attributeSet: AttributeSet) : View(conte
 
     init {
         attributeSet.let {
-            val typedArray = context.obtainStyledAttributes(it, R.styleable.iOSColorSeekBar)
-            val colorsId = typedArray.getResourceId(R.styleable.iOSColorSeekBar_seekBarColors, 0)
-            if (typedArray.getBoolean(R.styleable.iOSColorSeekBar_shadowLayer, false)) {
+            val typedArray = context.obtainStyledAttributes(it, R.styleable.IOSColorSeekBar)
+            val colorsId = typedArray.getResourceId(R.styleable.IOSColorSeekBar_seekBarColors, 0)
+            thumbShadowRadius = typedArray.getFloat(R.styleable.IOSColorSeekBar_shadowLayerRadius, 5f)
+            if ( typedArray.getString(R.styleable.IOSColorSeekBar_shadowLayerColor) != null){
+                thumbShadowColor = Color.parseColor(typedArray.getString(R.styleable.IOSColorSeekBar_shadowLayerColor))
+            }
+
+            if (typedArray.getBoolean(R.styleable.IOSColorSeekBar_shadowLayer, false)) {
                 thumbShadowRadius = when {
                     thumbShadowRadius > maxRadius -> {
                         // set to maximum radius
@@ -77,8 +82,8 @@ class IOSColorSeekBar(context: Context, attributeSet: AttributeSet) : View(conte
                 thumbBorderPaint.setShadowLayer(thumbShadowRadius, 0f, 10f, thumbShadowColor)
             }
             if (colorsId != 0) seekBarColors = getColorsById(colorsId)
-            barCornerRadius = typedArray.getDimension(R.styleable.iOSColorSeekBar_cornerRadius, 2f)
-            barHeight = typedArray.getDimension(R.styleable.iOSColorSeekBar_barHeight, 6f).toInt()
+            barCornerRadius = typedArray.getDimension(R.styleable.IOSColorSeekBar_cornerRadius, 2f)
+            barHeight = typedArray.getDimension(R.styleable.IOSColorSeekBar_barHeight, 6f).toInt()
             typedArray.recycle()
         }
         rectPaint.isAntiAlias = true
@@ -140,6 +145,7 @@ class IOSColorSeekBar(context: Context, attributeSet: AttributeSet) : View(conte
         val color = pickColor(thumbX, width)
         thumbPaint.color = color
         // draw color bar thumb
+        colorChangeListener?.onColorChangeListener(getCurrentColor())
         canvas?.drawCircle(thumbX, thumbY, thumbBorderRadius, thumbBorderPaint)
         canvas?.drawCircle(thumbX, thumbY, thumbRadius, thumbPaint)
         // draw white thumb
@@ -199,7 +205,6 @@ class IOSColorSeekBar(context: Context, attributeSet: AttributeSet) : View(conte
                     thumbX = it
                     invalidate()
                 }
-                colorChangeListener?.onColorChangeListener(getCurrentColor())
             }
             MotionEvent.ACTION_UP -> {
                 invalidate()
@@ -214,6 +219,7 @@ class IOSColorSeekBar(context: Context, attributeSet: AttributeSet) : View(conte
              * set the position of thumb on color
              */
     fun seekTo(color: Int) {
+        isLoaded = true
         hue = getHue(color)
         invalidate()
     }
@@ -269,7 +275,7 @@ class IOSColorSeekBar(context: Context, attributeSet: AttributeSet) : View(conte
      * @return color Int (darker color or lighter color)
      */
     fun darkOrLightColor(color: Int, alpha: Float): Int {
-        var hsl = FloatArray(3)
+        val hsl = FloatArray(3)
         ColorUtils.colorToHSL(color, hsl)
         hsl[2] = alpha
         return ColorUtils.HSLToColor(hsl)

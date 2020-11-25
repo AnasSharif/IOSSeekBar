@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         colorSlider = findViewById(R.id.iosColorSlider)
         colorSlider.setColorBrightness(0.8f)
-        colorView.setBackgroundColor(colorSlider.getCurrentColor())
         colorSlider.setOnColorChangeListener(object : IOSColorSeekBar.OnColorChangeListener {
             override fun onColorChangeListener(color: Int) {
                 colorView.setBackgroundColor(color)
