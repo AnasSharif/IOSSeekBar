@@ -1,4 +1,6 @@
 
+<img src = "https://github.com/AnasSharif/IOSSeekBar/blob/master/ezgif.com-gif-maker.gif" />
+
 ## Download
  - Use Gradle
 ```
